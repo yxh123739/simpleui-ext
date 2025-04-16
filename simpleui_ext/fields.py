@@ -1,5 +1,6 @@
 from django.db import models
-from simpleui_ext.forms.widgets import ElSelect
+
+from simpleui_ext.widgets import ElSelect
 
 
 class TagField(models.IntegerField):
@@ -14,7 +15,7 @@ class TagField(models.IntegerField):
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
         if self.tag_colors:
-            kwargs['tag_colors'] = self.tag_colors
+            kwargs["tag_colors"] = self.tag_colors
         return name, path, args, kwargs
 
     def formfield(self, **kwargs):
@@ -22,10 +23,10 @@ class TagField(models.IntegerField):
         from django.forms import TypedChoiceField
 
         defaults = {
-            'form_class': TypedChoiceField,
-            'choices': self.choices,
-            'widget': ElSelect,
-            'coerce': int,
+            "form_class": TypedChoiceField,
+            "choices": self.choices,
+            "widget": ElSelect,
+            "coerce": int,
         }
         defaults.update(kwargs)
         return super().formfield(**defaults)
